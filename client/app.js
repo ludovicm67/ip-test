@@ -1,24 +1,19 @@
-var ipv4 = document.getElementById('ipv4');
-var ipv6 = document.getElementById('ipv6');
+// configuration
+var ipv4 = 'https://ipv4-test.ludovic-muller.fr/';
+var ipv6 = 'https://ipv6-test.ludovic-muller.fr/';
 
-fetch('https://ipv4-test.ludovic-muller.fr/')
-  .then(function(response) {
-    return response.text();
-  })
-  .then(function(text) {
-    ipv4.textContent = text;
-  })
-  .catch(function(error) {
-    console.error('IPv4 request failed.');
-  });
+// function to fetch user IP
+function fetchIP(elemId, url) {
+  fetch(url)
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(text) {
+      var elem = document.getElementById(elemId);
+      if (elem) elem.textContent = text;
+    })
+}
 
-fetch('https://ipv6-test.ludovic-muller.fr/')
-  .then(function(response) {
-    return response.text();
-  })
-  .then(function(text) {
-    ipv6.textContent = text;
-  })
-  .catch(function(error) {
-    console.error('IPv6 request failed.');
-  });
+// fetch both IP versions
+fetchIP('ipv4', ipv4);
+fetchIP('ipv6', ipv6);
